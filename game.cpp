@@ -68,6 +68,35 @@ void Game::gameloop()
 
 void Game::add_symbol(char position, Player player)
 {
+	// Check if valid input is given
+	switch (position)
+	{
+	case '1':
+		break;
+	case '2':
+		break;
+	case '3':
+		break;
+	case '4':
+		break;
+	case '5':
+		break;
+	case '6':
+		break;
+	case '7':
+		break;
+	case '8':
+		break;
+	case '9':
+		break;
+	default:
+		std::cout << "Invalid input\n";
+		std::cout << "Pick a number between (1-9)\n";
+
+		std::cout << player.name + ": ";
+		std::cin >> position;
+		add_symbol(position, player);
+	}
 	//check if this position has already been used
 	if(positions[position] == true)
 	{
