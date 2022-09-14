@@ -2,9 +2,12 @@
 
 Player player1, player2;
 
-void Game::printboard(){
-	for(int i = 0; i < 3; i++){
-		for(int j = 0; j < 3; j++){
+void Game::printboard()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
 			std::cout << '[' << board[i][j] << ']' << "\t";
 		}
 		std::cout << "\n";
@@ -16,11 +19,11 @@ void Game::startgame()
 {
 	printboard();
 
-	//create players
+	// create players
 	std::cout << "\nPlayer1 Name: ";
 	std::cin >> player1.name;
 	player1.symbol = 'X';
-	std::cout << player1.name << ", your symbol is: " << player1.symbol << std::endl; 
+	std::cout << player1.name << ", your symbol is: " << player1.symbol << std::endl;
 
 	std::cout << "\nPlayer2 Name: ";
 	std::cin >> player2.name;
@@ -36,40 +39,67 @@ void Game::startgame()
 void Game::gameloop()
 {
 	char position;
-	while(true)
+	while (true)
 	{
 		printboard();
 
-		//player1 turn
+		// player1 turn
 		std::cout << player1.name + ": ";
 		std::cin >> position;
 
 		add_symbol(position, player1);
-		if(check_win(player1))
+		if (check_win(player1))
 		{
 			printboard();
 			break;
 		}
 		printboard();
 
-		//player2 turn
+		// player2 turn
 		std::cout << player2.name + ": ";
 		std::cin >> position;
 		add_symbol(position, player2);
-		if(check_win(player2))
+		if (check_win(player2))
 		{
 			printboard();
 			break;
-		} 
-
-
+		}
 	}
 }
 
 void Game::add_symbol(char position, Player player)
 {
-	//check if this position has already been used
-	if(positions[position] == true)
+	// Check if valid input is given
+	switch (position)
+	{
+	case '1':
+		break;
+	case '2':
+		break;
+	case '3':
+		break;
+	case '4':
+		break;
+	case '5':
+		break;
+	case '6':
+		break;
+	case '7':
+		break;
+	case '8':
+		break;
+	case '9':
+		break;
+	default:
+		std::cout << "Invalid input\n";
+		std::cout << "Pick a number between (1-9)\n";
+
+		std::cout << player.name + ": ";
+		std::cin >> position;
+		add_symbol(position, player);
+	}
+	// check if this position has already been used
+	if (positions[position] == true)
 	{
 		std::cout << "\nThis position has already been used, please try again.\n";
 		std::cout << player.name + ": ";
@@ -77,13 +107,15 @@ void Game::add_symbol(char position, Player player)
 		add_symbol(position, player);
 	}
 
-	//add symbol to board
-	for(int i = 0; i < 3; i++){
-		for(int j = 0; j < 3; j++){
-			if(board[i][j] == position)
+	// add symbol to board
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (board[i][j] == position)
 			{
 				positions[board[i][j]] = true;
-				board[i][j] = player.symbol;	
+				board[i][j] = player.symbol;
 			}
 		}
 	}
@@ -92,31 +124,51 @@ void Game::add_symbol(char position, Player player)
 bool Game::check_win(Player player)
 {
 	std::vector<char> input;
-	
-	//horizonatal check
+
+	// horizonatal check
 	for (int i = 0; i < 3; i++)
 	{
-		if(board[i][0] == board[i][1] && board[i][1] == board[i][2])
+		if (board[i][0] == board[i][1] && board[i][1] == board[i][2])
 		{
 			std::cout << "Congatrulations " << player.name << ", you have won!" << std::endl;
 			return true;
 		}
 	}
 
-	//vertical check
+	// vertical check
 	for (int i = 0; i < 3; i++)
 	{
-		if(board[0][i] == board[1][i] && board[1][i] == board[2][i])
+		if (board[0][i] == board[1][i] && board[1][i] == board[2][i])
 		{
 			std::cout << "Congatrulations " << player.name << ", you have won!" << std::endl;
 			return true;
 		}
 	}
-	
-	//diagonal check
-	if((board[0][0] == board[1][1] && board[1][1] == board[2][2]) || ((board[0][2] == board[1][1] && board[1][1] == board[2][0])))
+
+	// diagonal check
+	if ((board[0][0] == board[1][1] && board[1][1] == board[2][2]) || ((board[0][2] == board[1][1] && board[1][1] == board[2][0])))
 	{
 		std::cout << "Congatrulations " << player.name << ", you have won!" << std::endl;
+		return true;
+	}
+
+	// Draw check
+	bool draw = true;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (board[i][j] == 'X' || board[i][j] == 'O')
+			{
+				continue;
+			}
+			draw = false;
+		}
+	}
+
+	if (draw)
+	{
+		std::cout << "Game over: DRAW\n";
 		return true;
 	}
 
