@@ -163,15 +163,14 @@ bool Game::check_win(Player player)
 				continue;
 			}
 			draw = false;
-			
 		}
 	}
 
-	if (draw) {
+	if (draw)
+	{
 		std::cout << "Game over: DRAW\n";
-		return true; 
+		return true;
 	}
-	
 
 	return false;
 }
